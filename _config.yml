@@ -1,0 +1,34 @@
+theme: jekyll-theme-profile
+style: appbar # One of "stacked", "sidebar", "topbar"
+repository: athackst/timer
+title: althack.dev
+
+social_media:
+  # behance: your_username
+  # dribbble: your_username
+  docker: althack
+  # facebook: your_username
+  # hackerrank: your_username
+  # instagram: your_username
+  # keybase: your_username
+  linkedin: allisonthackston
+  # mastodon: your_username
+  # medium: your_username
+  # stackoverflow: your_user_id
+  # telegram: your_username
+  x: althack
+  # unsplash: your_username
+  # vk: your_username
+  vscode: althack
+  # youtube: your_username
+
+analytics:
+  provider: google
+  property: G-JG29YKVRKH
+
+exclude:
+ - .ruby-lsp/*
+ - node_modules/*
+ - vendor/*
+ - .sass-cache/*
+ - .cookies

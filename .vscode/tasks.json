@@ -1,0 +1,66 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "jekyll: serve",
+            "type": "shell",
+            "command": "bundle exec jekyll serve --livereload",
+            "problemMatcher": []
+        },
+        {
+            "label": "jekyll: serve (drafts)",
+            "type": "shell",
+            "command": "bundle exec jekyll serve --drafts --livereload",
+            "problemMatcher": []
+        },
+        {
+            "label": "jekyll: build",
+            "type": "shell",
+            "command": "bundle exec jekyll build --verbose",
+            "problemMatcher": []
+        },
+        {
+            "label": "bundle: update",
+            "type": "shell",
+            "command": "bundle update",
+            "problemMatcher": []
+        },
+        {
+            "label": "bundle: install",
+            "type": "shell",
+            "command": "bundle install",
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "bundle exec jekyll build --verbose",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "problemMatcher": [],
+            "command": ".github/scripts/htmlproofer/entrypoint.sh",
+            "dependsOn": [
+                "build"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm -fr _site vendor .jekyll-cache",
+            "problemMatcher": [],
+        }
+    ]
+}
