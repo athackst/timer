@@ -41,3 +41,39 @@
     color: #555;
   }
   
+/* Remove default marker if you want a custom arrow: */
+.settings-summary {
+  list-style: none;        /* hide default triangle */
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+/* Add your own arrow via pseudo-element: */
+.settings-summary::before {
+  content: "\2699";            /* right‑pointing triangle */
+  display: inline-block;
+  margin-right: .5em;
+  font-size:xx-large;
+  transition: transform .2s ease;
+}
+
+/* Rotate arrow when open: */
+details[open] .settings-summary::before {
+  transform: rotate(90deg);
+}
+
+/* Optional spacing / style tweaks */
+.settings-summary {
+  font-size: 1rem;
+}
+.settings-details > table {
+  margin-top: .5em;
+}
+
+.settings-details {
+  width: fit-content;
+  margin: auto;
+  min-width: 200px;
+}

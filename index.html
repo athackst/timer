@@ -2,42 +2,45 @@
 layout: page
 title: Interval Timer
 ---
-<table class="table mx-auto overflow-visible">
-    <tbody>
-        <tr>
-            <td class="text-bold text-right">Work Time:</td>
-            <td><input type="text" id="workTime" value="0:10" class="form-control"></td>
-        </tr>
-        <tr>
-            <td class="text-bold text-right">Rest Time:</td>
-            <td><input type="text" id="restTime" value="0:20" class="form-control"></td>
-        </tr>
-        <tr>
-            <td class="text-bold text-right">Rounds:</td>
-            <td><input type="number" id="rounds" value="8" min="1" class="form-control"></td>
-        </tr>
-        <tr>
-            <td class="text-right color-fg-attention color-bg-attention">Total working time:</td>
-            <td class="text-left color-fg-attention color-bg-attention"id="totalWorkTime">--</td>
-        </tr>
-        <tr>
-            <td class="text-bold text-right">Warm-up:</td>
-            <td><input type="text" id="warmupTime" value="0:00" class="form-control"></td>
-        </tr>
-        <tr>
-            <td class="text-bold text-right">Cool Down:</td>
-            <td><input type="text" id="cooldownTime" value="0:00" class="form-control"></td>
-        </tr>
-        <tr>
-            <td class="text-right color-fg-attention color-bg-attention">Total session time:</td>
-            <td class="text-left color-fg-attention color-bg-attention" id="totalTime">--</td>
-        </tr>
-        <tr>
-            <td class="text-bold text-right">Sounds:</td>
-            <td><input type="checkbox" id="enableSounds" checked class="ml-2 text-left"></td>
-        </tr>
-    </tbody>
-</table>
+<details id="settingsDetails" open class="settings-details">
+    <summary class="settings-summary"></summary>
+    <table class="table mx-auto overflow-visible">
+        <tbody>
+            <tr>
+                <td class="text-bold text-right">Work Time:</td>
+                <td><input type="text" id="workTime" value="0:10" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-bold text-right">Rest Time:</td>
+                <td><input type="text" id="restTime" value="0:20" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-bold text-right">Rounds:</td>
+                <td><input type="number" id="rounds" value="8" min="1" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right color-fg-attention color-bg-attention">Total working time:</td>
+                <td class="text-left color-fg-attention color-bg-attention" id="totalWorkTime">--</td>
+            </tr>
+            <tr>
+                <td class="text-bold text-right">Warm-up:</td>
+                <td><input type="text" id="warmupTime" value="0:00" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-bold text-right">Cool Down:</td>
+                <td><input type="text" id="cooldownTime" value="0:00" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="text-right color-fg-attention color-bg-attention">Total session time:</td>
+                <td class="text-left color-fg-attention color-bg-attention" id="totalTime">--</td>
+            </tr>
+            <tr>
+                <td class="text-bold text-right">Sounds:</td>
+                <td><input type="checkbox" id="enableSounds" checked class="ml-2 text-left"></td>
+            </tr>
+        </tbody>
+    </table>
+</details>
 
 <div class="mt-3">
     <!-- TIMER CONTAINER -->

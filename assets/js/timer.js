@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const warmupTimeInput = document.getElementById('warmupTime');
     const cooldownTimeInput = document.getElementById('cooldownTime');
     const roundsInput = document.getElementById('rounds');
-    // const phaseLabel = document.getElementById('phaseLabel');
+    const settingsPanel = document.getElementById('settingsDetails');
     const phaseDisplay = document.getElementById('phaseDisplay');
     const timeDisplay = document.getElementById('timeDisplay');
     const roundDisplay = document.getElementById('roundDisplay');
@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
     /** Start workout timer */
     function startTimer() {
         console.debug("Starting timer")
+        collapseSettings();
         currentRound = 1;
         currentPhase = 'warmup';
         isFinished = false;
@@ -339,6 +340,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (document.visibilityState === 'visible' && !isPaused && !isFinished) {
             requestWakeLock();
         }
+    }
+
+    function collapseSettings() {
+        settingsPanel.open=false;
+    }
+
+    function expandSettings() {
+        settingsPanel.open=true;
     }
 
     loadAudioFiles();
