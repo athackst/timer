@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentRound = 1;
     let warmupTime, workTime, restTime, cooldownTime, totalRounds;
     let timeLeft, totalTime;
+    let wakeLock = null;
     const ringCircumference = 2 * Math.PI * 45;
 
     /** Attach event listeners */
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timeLeft = duration;
         totalTime = duration;
         if (duration === 0) {
-            console.debug("Duration for this phase is 0, switching to a new phase")
+            console.debug("Duration for this phase is 0, switching to the next phase")
             switchPhase();
             return;
         }
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.debug("Resuming timer")
         isPaused = false;
         clearInterval(interval);
+        requestWakeLock();
         interval = setInterval(() => {
             timeLeft--;
             updateUI();
@@ -162,11 +164,13 @@ document.addEventListener("DOMContentLoaded", function () {
         console.debug("Pausing timer")
         isPaused = true;
         clearInterval(interval);
+        releaseWakeLock();
     }
 
     /** Reset timer to initial state */
     function resetTimer() {
         console.debug("Resetting timer")
+        releaseWakeLock();
         isFinished = true;
         isPaused = true;
         currentRound = 1;
@@ -210,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function endSession() {
         console.debug("Timer ended.")
         playSound();
+        releaseWakeLock();
         resetTimer();
         phaseLabel.innerText = 'Session Complete!';
     }
@@ -244,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else if (currentPhase === 'ready') {
             //Do nothing
-        } 
+        }
         else {
             phaseLabel.innerText = `${phaseText} - ${mins}:${secs.toString().padStart(2, '0')}`;
         }
@@ -286,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Unlock audio context on first user interaction
+    /**  Unlock audio context on first user interaction */
     document.addEventListener("click", function unlockAudio() {
         if (audioContext.state === "suspended") {
             audioContext.resume().then(() => console.log("Audio context resumed"));
@@ -305,6 +310,38 @@ document.addEventListener("DOMContentLoaded", function () {
         source.buffer = audioBuffers[currentPhase];
         source.connect(audioContext.destination);
         source.start(0);
+    }
+
+    /**  Wake Lock Functions */
+    async function requestWakeLock() {
+        try {
+            if ('wakeLock' in navigator && wakeLock === null) {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.debug('Wake Lock acquired');
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+            }
+        } catch (err) {
+            console.error('Could not acquire Wake Lock:', err);
+        }
+    }
+
+    async function releaseWakeLock() {
+        try {
+            if (wakeLock !== null) {
+                await wakeLock.release();
+                wakeLock = null;
+                console.debug('Wake Lock released');
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            }
+        } catch (err) {
+            console.error('Could not release Wake Lock:', err);
+        }
+    }
+
+    function handleVisibilityChange() {
+        if (document.visibilityState === 'visible' && !isPaused && !isFinished) {
+            requestWakeLock();
+        }
     }
 
     loadAudioFiles();
