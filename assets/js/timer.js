@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const warmupTimeInput = document.getElementById('warmupTime');
     const cooldownTimeInput = document.getElementById('cooldownTime');
     const roundsInput = document.getElementById('rounds');
-    const phaseLabel = document.getElementById('phaseLabel');
+    // const phaseLabel = document.getElementById('phaseLabel');
+    const phaseDisplay = document.getElementById('phaseDisplay');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const roundDisplay = document.getElementById('roundDisplay');
     const totalTimeDisplay = document.getElementById('totalTime');
     const workTimeDisplay = document.getElementById('totalWorkTime');
     const timerRing = document.getElementById('timerRing');
@@ -94,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const totalWorkTime = (workTime + restTime) * totalRounds;
         const fullSessionTime = warmupTime + totalWorkTime + cooldownTime;
-        totalTimeDisplay.innerText = `Total Session Time: ${Math.floor(fullSessionTime / 60)}m ${fullSessionTime % 60}s`;
-        workTimeDisplay.innerText = `Total Work Time: ${Math.floor(totalWorkTime / 60)}m ${totalWorkTime % 60}s`
+        totalTimeDisplay.innerText = `${Math.floor(fullSessionTime / 60)}m ${fullSessionTime % 60}s`;
+        workTimeDisplay.innerText = `${Math.floor(totalWorkTime / 60)}m ${totalWorkTime % 60}s`
     }
 
     /** Toggle timer start/pause */
@@ -110,11 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.debug("Timer is paused but not finished, resume.")
                 resumeTimer();
             }
-            timerButton.innerText = "Pause Timer";
+            timerButton.innerText = "Pause";
         } else {
             console.log("Timer is not paused, pause timer.")
             pauseTimer();
-            timerButton.innerText = "Resume Timer";
+            timerButton.innerText = "Resume";
         }
     }
 
@@ -216,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
         playSound();
         releaseWakeLock();
         resetTimer();
-        phaseLabel.innerText = 'Session Complete!';
+        // phaseLabel.innerText = 'Session Complete!';
     }
 
     /** Update UI elements */
@@ -244,25 +247,19 @@ document.addEventListener("DOMContentLoaded", function () {
             ready: "Ready"
         }
         let phaseText = phaseTitles[currentPhase];
-        if (currentPhase === 'work' || currentPhase === 'rest') {
-            phaseLabel.innerText = `${phaseText} - Round ${currentRound}/${totalRounds} - ${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-        else if (currentPhase === 'ready') {
-            //Do nothing
-        }
-        else {
-            phaseLabel.innerText = `${phaseText} - ${mins}:${secs.toString().padStart(2, '0')}`;
-        }
+        phaseDisplay.innerText = `${phaseText}`;
+        timeDisplay.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+        roundDisplay.innerText = `${currentRound}/${totalRounds}`;
     }
 
     /** Update background color based on phase */
     function updateBackground() {
         let backgroundColors = {
-            work: 'var(--display-green-bgColor-muted, #c8e6c9)',
-            rest: 'var(--display-blue-bgColor-muted, #bbdefb)',
-            ready: 'var(--bgColor-default, var(--color-canvas-default, #ffffff))',
-            cooldown: 'var(--display-plum-bgColor-muted, #ffffff)',
-            warmup: 'var(--display-plum-bgColor-muted, #bbdefb)'
+            work: 'var(--timer-work-bg, var(--display-green-bgColor-muted, #c8e6c9))',
+            rest: 'var(--timer-rest-bg, var(--display-blue-bgColor-muted, #bbdefb))',
+            ready: 'var(--timer-ready-bg, var(--bgColor-default, var(--color-canvas-default, #ffffff)))',
+            cooldown: 'var(--timer-cooldown-bg, var(--display-plum-bgColor-muted, #ffffff))',
+            warmup: 'var(--timer-warmup-bg, var(--display-plum-bgColor-muted, #bbdefb))'
         };
         document.body.style.backgroundColor = backgroundColors[currentPhase];
     }
