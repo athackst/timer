@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let interval;
     let isPaused = true;
     let isFinished = true;
-    let currentPhase = 'work';
+    let currentPhase = 'ready';
     let currentRound = 1;
     let warmupTime, workTime, restTime, cooldownTime, totalRounds;
     let timeLeft, totalTime;
@@ -46,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     roundsInput.addEventListener("focus", function () {
         this.select();
     });
-    roundsInput.addEventListener("click", function () {
-        this.setSelectionRange(0, this.value.length);
-    });
+
 
     /** Convert microwave-style input to seconds */
     function formatMicrowaveTime(inputField) {
@@ -102,10 +100,18 @@ document.addEventListener("DOMContentLoaded", function () {
     /** Toggle timer start/pause */
     function toggleTimer() {
         if (isPaused) {
-            if (isFinished) startTimer();
-            else resumeTimer();
+            console.debug("Timer is paused.")
+            if (isFinished) {
+                console.debug("Timer is finished, start timer.")
+                startTimer();
+            }
+            else {
+                console.debug("Timer is paused but not finished, resume.")
+                resumeTimer();
+            }
             timerButton.innerText = "Pause Timer";
         } else {
+            console.log("Timer is not paused, pause timer.")
             pauseTimer();
             timerButton.innerText = "Resume Timer";
         }
@@ -113,9 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /** Start workout timer */
     function startTimer() {
+        console.debug("Starting timer")
         currentRound = 1;
         currentPhase = 'warmup';
         isFinished = false;
+        isPaused = false;
         clearInterval(interval);
         startPhase(warmupTime);
     }
@@ -124,12 +132,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function startPhase(duration) {
         timeLeft = duration;
         totalTime = duration;
+        if (duration === 0) {
+            console.debug("Duration for this phase is 0, switching to a new phase")
+            switchPhase();
+            return;
+        }
         playSound();
         resumeTimer();
     }
 
     /** Resume countdown */
     function resumeTimer() {
+        console.debug("Resuming timer")
         isPaused = false;
         clearInterval(interval);
         interval = setInterval(() => {
@@ -145,12 +159,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /** Pause countdown */
     function pauseTimer() {
+        console.debug("Pausing timer")
         isPaused = true;
         clearInterval(interval);
     }
 
     /** Reset timer to initial state */
     function resetTimer() {
+        console.debug("Resetting timer")
         isFinished = true;
         isPaused = true;
         currentRound = 1;
@@ -165,21 +181,26 @@ document.addEventListener("DOMContentLoaded", function () {
     /** Switch between work and rest phases */
     function switchPhase() {
         if (currentPhase === 'warmup') {
+            console.debug("Switchting phase warmup->work")
             currentPhase = 'work';
             startPhase(workTime);
         } else if (currentPhase === 'work') {
+            console.debug("Switching phase work->rest")
             currentPhase = 'rest';
             startPhase(restTime);
         } else if (currentPhase === 'rest') {
             currentRound++;
             if (currentRound > totalRounds) {
+                console.debug("Switching phase rest->cooldown")
                 currentPhase = 'cooldown';
                 startPhase(cooldownTime);
             } else {
+                console.debug("Switching phase rest->work")
                 currentPhase = 'work';
                 startPhase(workTime);
             }
         } else if (currentPhase === 'cooldown') {
+            console.debug("Switching phase cooldown->ready")
             currentPhase = 'ready';
             endSession();
         }
@@ -187,11 +208,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /** End session and reset UI */
     function endSession() {
-        isFinished = true;
-        isPaused = true;
+        console.debug("Timer ended.")
         playSound();
-        updateUI();
-        timerButton.innerText = "Start Timer";
+        resetTimer();
         phaseLabel.innerText = 'Session Complete!';
     }
 
@@ -222,7 +241,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let phaseText = phaseTitles[currentPhase];
         if (currentPhase === 'work' || currentPhase === 'rest') {
             phaseLabel.innerText = `${phaseText} - Round ${currentRound}/${totalRounds} - ${mins}:${secs.toString().padStart(2, '0')}`;
-        } else {
+        }
+        else if (currentPhase === 'ready') {
+            //Do nothing
+        } 
+        else {
             phaseLabel.innerText = `${phaseText} - ${mins}:${secs.toString().padStart(2, '0')}`;
         }
     }
@@ -285,8 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadAudioFiles();
-
+    calculateTotalTime();
 
     console.log("Timer script loaded successfully!");
-    calculateTotalTime();
 });
