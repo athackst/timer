@@ -63,19 +63,25 @@ GEM
     fiber-storage (1.0.1)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
-    google-protobuf (4.30.2)
+    google-protobuf (4.31.0)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-aarch64-linux)
+    google-protobuf (4.31.0-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-arm64-darwin)
+    google-protobuf (4.31.0-aarch64-linux-musl)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-x86_64-darwin)
+    google-protobuf (4.31.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.30.2-x86_64-linux)
+    google-protobuf (4.31.0-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.0-x86_64-linux-musl)
       bigdecimal
       rake (>= 13)
     hashery (2.1.2)
@@ -196,22 +202,22 @@ GEM
     rouge (4.5.2)
     ruby-rc4 (0.1.5)
     safe_yaml (1.0.5)
-    sass-embedded (1.88.0-aarch64-linux-gnu)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-aarch64-linux-musl)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-arm-linux-gnueabihf)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-arm-linux-musleabihf)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-arm64-darwin)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-x86_64-darwin)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-x86_64-linux-gnu)
-      google-protobuf (~> 4.30)
-    sass-embedded (1.88.0-x86_64-linux-musl)
-      google-protobuf (~> 4.30)
+    sass-embedded (1.89.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-aarch64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.89.0-x86_64-linux-musl)
+      google-protobuf (~> 4.31)
     sawyer (0.9.2)
       addressable (>= 2.3.5)
       faraday (>= 0.17.3, < 3)
@@ -232,7 +238,6 @@ GEM
     zeitwerk (2.7.2)
 
 PLATFORMS
-  aarch64-linux
   aarch64-linux-gnu
   aarch64-linux-musl
   arm-linux-gnu
@@ -248,7 +253,7 @@ DEPENDENCIES
   bundler
   dotenv (~> 3.1)
   html-proofer
-  jekyll
+  jekyll (~> 4.4.1)
   jekyll-github-metadata (<= 2.13.0)
   jekyll-theme-profile
   webrick (~> 1.9)
