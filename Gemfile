@@ -7,7 +7,7 @@ gem 'jekyll-theme-profile'
 # gem 'jekyll-theme-profile', :git => 'https://github.com/athackst/jekyll-theme-profile.git'
 
 group :jekyll_plugins do
-  gem 'jekyll-github-metadata', '<= 2.13.0'
+  gem 'jekyll-github-metadata', '<= 2.17.0'
 end
 
 group :development do
