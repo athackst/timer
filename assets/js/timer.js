@@ -270,11 +270,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadAudioFiles() {
         const sounds = {
-            warmup: "/assets/sounds/arcade-ui-7-229506.mp3",
-            work: "/assets/sounds/arcade-ui-2-229500.mp3",
-            rest: "/assets/sounds/arcade-ui-4-229502.mp3",
-            cooldown: "/assets/sounds/arcade-ui-9-229507.mp3",
-            ready: "/assets/sounds/arcade-ui-18-229517.mp3"
+            warmup: "assets/sounds/arcade-ui-7-229506.mp3",
+            work: "assets/sounds/arcade-ui-2-229500.mp3",
+            rest: "assets/sounds/arcade-ui-4-229502.mp3",
+            cooldown: "assets/sounds/arcade-ui-9-229507.mp3",
+            ready: "assets/sounds/arcade-ui-18-229517.mp3"
         };
 
         Object.keys(sounds).forEach(phase => {
